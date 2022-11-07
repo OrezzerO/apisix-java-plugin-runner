@@ -128,6 +128,7 @@ public class ApplicationRunner implements CommandLineRunner {
             @Override
             protected void initChannel(DomainSocketChannel channel) {
                 channel.pipeline().addFirst("logger", new LoggingHandler())
+
                         .addAfter("logger", "payloadEncoder", new PayloadEncoder())
                         .addAfter("payloadEncoder", "delayedDecoder", new BinaryProtocolDecoder())
                         .addLast("payloadDecoder", new PayloadDecoder())
